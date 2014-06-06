@@ -5,6 +5,7 @@
     <groupId>com.doge</groupId>
     <version>1.2.3-SNAPSHOT</version>
     <artifactId>such-dson</artifactId>
+    <packaging>jar</packaging>
 
     <build>
         <plugins>
@@ -21,8 +22,7 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.2.2</version>
                 <configuration>
-                    <sourceDirectory>${basedir}/src/main/grammar</sourceDirectory>
-                    <outputDirectory>${basedir}/src/generated/java/com/doge</outputDirectory>
+                    <outputDirectory>${basedir}/src/generated/java</outputDirectory>
 
                     <libDirectory>${basedir}/src/main/grammar</libDirectory>
                     <package>com.doge</package>

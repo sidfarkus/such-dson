@@ -5,6 +5,12 @@ options
     language = Java;
 }
 
+/*
+=============================================
+ SUCH LEXING!
+=============================================
+*/
+
 SUCH : 'such';
 WOW : 'wow';
 IS : 'is';
@@ -34,12 +40,20 @@ fragment
 CHAR : '\\' ('"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT) | ~'"';
 STRING : '"' CHAR* '"';
 
+WHITESPACE : ('\u0001' .. '\u001F' | '\u0080' .. '\u009F' | ' ')+ -> channel(HIDDEN);
+
+/*
+=============================================
+ SUCH PARSING!
+=============================================
+*/
+
 object:
     SUCH members? WOW
     ;
 
 members:
-    pair (NEXT members)?
+    pair (NEXT pair)*
     ;
 
 pair:
@@ -59,5 +73,5 @@ array:
     ;
 
 elements:
-    value (NEXT elements)?
+    value (NEXT value)*
     ;
