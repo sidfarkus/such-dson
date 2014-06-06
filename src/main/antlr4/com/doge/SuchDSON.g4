@@ -14,12 +14,14 @@ options
 SUCH : 'such';
 WOW : 'wow';
 IS : 'is';
-NEXT : 'next';
+NEXT : 'next' | ',' | '.' | '!' | '?';
 SO : 'so';
 MANY : 'many';
-NOTFALSE : 'notfalse';
-NOTTRUE : 'nottrue';
-NULLISH : 'nullish';
+AND : 'and';
+ALSO : 'also';
+YES : 'empty';
+NO : 'no';
+EMPTY : 'empty';
 VERY : ('very' | 'VERY') ('+' | '-')?;
 MINUS : '-';
 
@@ -34,10 +36,13 @@ EXP : VERY DIGIT+;
 NUMBER : MINUS? (DIGIT | DIGIT19 DIGIT+) FRAC? EXP?;
 
 fragment
-HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+OCTAL_DIGIT : '0'..'7' ;
 
 fragment
-CHAR : '\\' ('"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT) | ~'"';
+UNICODE_ESC : 'u' OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT
+
+fragment
+CHAR : '\\' ('"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | UNICODE_ESC) | ~'"';
 STRING : '"' CHAR* '"';
 
 WHITESPACE : ('\u0001' .. '\u001F' | '\u0080' .. '\u009F' | ' ')+ -> channel(HIDDEN);
@@ -65,7 +70,7 @@ value:
     | NUMBER
     | object
     | array
-    | (NOTFALSE | NOTTRUE | NULLISH)
+    | (YES | NO | EMPTY)
     ;
 
 array:
@@ -73,5 +78,5 @@ array:
     ;
 
 elements:
-    value (NEXT value)*
+    value ((NEXT | AND | ALSO) value)*
     ;
