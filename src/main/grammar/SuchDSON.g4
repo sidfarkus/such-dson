@@ -14,7 +14,7 @@ MANY : 'many';
 NOTFALSE : 'notfalse';
 NOTTRUE : 'nottrue';
 NULLISH : 'nullish';
-VERY : ('very' | 'VERY') ('+' | '-')?
+VERY : ('very' | 'VERY') ('+' | '-')?;
 MINUS : '-';
 
 fragment
